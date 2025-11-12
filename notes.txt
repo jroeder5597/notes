@@ -1,0 +1,1647 @@
+Links
+STARS
+	Software Tools and Applications Request System -
+
+Directory Services
+https://home.directory.ray.com/
+
+Config Guides
+	https://raytheon.sharepoint.us/sites/CISCCB/Baselines/Approved%20Baselines/Forms/AllItems.aspx?RootFolder=%2Fsites%2FCISCCB%2FBaselines%2FApproved%20Baselines%2FWindows%2010&FolderCTID=0x01200069D27018C3E40E4F9F6CC0850E04ECA0
+	
+ServiceNow
+	Home - NEXT Connect Portal
+	
+Operating Systems Repo
+	\\apfs.tuc.us.ray.com\projs\vdeploy\SHB Repository
+
+Removable Device Policy
+	https://exemption.ext.ray.com/
+	
+Removable Device Policy Wording:
+
+This team member is an appointed RMD DT representative supporting RMD Closed Programs, with roles and responsibilities that require data transfer from the ORION network to classified and non-Orion connected information systems in support of program requirements.     
+
+RMD DT representatives supporting RMD DT Closed Programs maintain control of this media until it is delivered to authorized Data Transfer Agents and Media Custodians, who follow customer approved procedures for processing, documenting, and dispositioning all media introduced to the program area and ensuring protection of classified information through proper use of external media.  
+
+Additionally, RMD DT representatives are expected to adhere with all company policies related to the security and privacy of customer and company proprietary communications regardless of classification, and in submitting this request, are confirming understanding and concurrence with these policies, including, but not limited to, RP-OGC-035 and RP-GSS-002.   
+
+Specific activities include, not limited to - Transfer data via removable media (optical, drives) in support of engineering, development, production deliverables. - Move operating systems, deployment packages, patches, software, firmware updates onto RMD DT supported systems that do not have the Forcepoint DLP software installed on them and are off ORION.
+
+
+Raytheon App Store
+	http://raytheonappstore.app.ray.com/
+
+Program Execution Wiki 
+	Home (sharepoint.us)
+
+Nessus Plugins
+	\\us\ids\Functions\Operations\DML\Software_Titles\Tenable\Tenable_Nessus_Plugin_Updates\
+
+System Patcher 
+	Old Link - \\apfs.tuc.us.ray.com\projs\PEWE-Patches\SystemPatcher
+	New Link - \\apfs.tuc.us.ray.com\projs\PEWE-Patches
+
+Patch Mgmt
+	\\apfs.tuc.us.ray.com\projs\airporthd
+
+Symantec AV Patches 
+	https://www.broadcom.com/support/security-center/definitions/download/detail?gid=sep14
+	Version Needed: Symantec Endpoint Protection Manager Installations on Windows Platforms x64 (Dark-Network Client only) 
+	For Standalones - Need Core3.exe
+
+Symantec Manager Definition Update
+	Download .jdb files to update definitions for Endpoint Protection Manager (broadcom.com)
+	Path for .jdb files - \Program Files(x86)\Symantec\Symantec Endpoint Protection Manager\data\inbox\content\incoming
+	
+GSSAC Findings
+GSS Audit and Corrective Action - Security Corrective Actions - RMD Default View-Open Recs (sharepoint.us)
+Jacob View- GSS Audit and Corrective Action - Security Corrective Actions - Jacob View (sharepoint.us)
+
+Approved Software
+Approved Software List - All Items (sharepoint.us)
+
+IT Notice 
+
+Email Template
+
+
+Artifactory
+	Artifacts - JFrog (ray.com)
+	
+STIG/SCAP
+	Home (sharepoint.us)
+
+Commands
+
+NetApp Fix 1173
+	vserver cifs domain password reset -vserver nas1
+
+ClamAV Definitions
+	Download defs, put in home folder on nas1 
+	SSH to x0162
+	Cd /home/security/clamav/defs
+	rm *.cvd in /home/security/clamav/defs
+	cp /home/jroeder/*.cvd .
+	https://database.clamav.net/main.cvd
+	https://database.clamav.net/daily.cvd
+	https://database.clamav.net/bytecode.cvd
+	
+Creating user 1173
+	1) Create user in AD (7 character max username)
+	2) RDP to dc02
+	3) Open centrify
+	4) Navigate to default zone > users, add user
+	5) Putty to linux box
+	6) Cd /home/, verify user doesn't already have home directory
+	7) Mkdir username
+	8) Chown -R username:domainus username
+	9) Chmod -R 750 username
+
+CALM Report
+CALM Report Generation Instructions.pdf (sharepoint.us)
+Home - Closed Area License Monitoring (sharepoint.us)
+Report location /var/www/html/reports
+	Grab all the html files, browse as needed
+CALM directory
+	/usr/local/calm2
+	
+3152 Influx
+Influx Docs: View users in InfluxDB | InfluxDB OSS 2.0 Documentation (influxdata.com)
+Needs admin token for every command, check history, grep for influx
+New password: influx user password -n USER -t TOKEN
+Create user: influx user create -n USER -o EADL (-p for password)
+
+Linux Patching
+\\apfs.tuc.us.ray.com\projs\redhat_satellite\repo\iso
+Mount rhel since .iso to home dir
+Mount .iso /media
+Cd /media/packages
+Rsync -avr /media/packages /apps/repos/redhat/7.9/since/packages
+Nano /etc/yum.repos.d/rhel17.repo to edit what repo files are used
+Cat /etc/yum.repos.d/rhel17.repo
+Yum clean all
+Yum repolist all
+Yum update
+Yum complete transaction(?)
+Rpm -qa --last to view update history
+
+ESXi Root Lockout
+	1) Get iLO access
+	2) ALT+F1 for console access
+	3) Login as root at console (Console does not have lockout, web access does)
+	4) Issue "pam_tally2 --user root --reset"
+	5) Web access is restored
+
+ANSYS Licensing
+	1) Upload license to netapp
+	2) Cp to /vdeploy/tools/ansys
+	3) Replace license with ansys-license.lic, backup old one
+	4) Nano old and new license, compare MAC and port
+	5) ./lmutil lmreread -c ansys-license.lic
+
+Reset RHEL root password
+	1) Boot into GRUB
+	2) Press 'e' to edit OS
+	3) Press 'e' to edit line with 'kernel' on it
+	4) Append 'init=/bin/bash/
+	5) Press Enter
+	6) When you get to the CLI, type "mount -o remount rw /"
+	7) Passwd root
+
+4102 Notes
+LNX ESX Hosts: hpc5-vdi01 hpc5-vdi02 hpc6-vdi01 and hpc6-vdi02
+Scratch servers are physical
+Windows Vcenter: https://vdi-vcenter01/
+Horizion Client: https://vdi-connection1/admin
+Blow Away GPO: HKLM > SOFTWARE > Microsoft > Windows > CurrentVersion, Delete GPO, Reboot
+
+Add User to HPC:
+	1) Add to gridusers in AD
+	2) ssh into hpc-mgmt03
+	3) history | grep sacctm
+	4) I usually just copy and paste the command to create the slurm account and change the username obvi 
+	5) ssh into vdi-lnx01 and create home dirs in hpcscratch, hpc-scratch02 - 04
+
+Start Ansys LM:
+	1) RDP to hpc-scratch01
+	2) Firefox > http://localhost:1084
+	3) Start LM
+	
+	
+Break into RHEL 7.9
+1. Reboot the machine: As soon as the bootloader comes up with the selection screen, quickly tap the up and down arrows up and down to pause the countdown.
+2. Select the kernel you want to boot into, and hit 'e': This will take you into a screen where you can edit the grub bootloader script.
+3. Find the line that refers to the kernel: There will be a series of 'boot parameters' here: these are instructions passed during the loading of the kernel.
+	a. For RHEL/CentOS 7, the line starts with 'linux16'.
+	b. For RHEL/Centos 8x, and Fedora the line starts with 'linux'.
+4. Add 'rd.break' at the end of that line (There are other things you can do here, but for now, this is all you need) [ Note: This change is temporary ].
+5. Now hit Ctrl-x to run the edited bootloader script.
+6. You’ll boot to a 'rescue' prompt that looks like this: switch_root:/#.
+7. Remount the root partition in read-write mode so that you can run commands. Enter the following: mount -o remount,rw /sysroot and then hit ENTER.
+8. Now type chroot /sysroot and hit enter. This will change you into the sysroot (/) directory, and make that your path for executing commands. 
+9. Now you can simply change the password for root using the passwd command.
+10. Next, before you reboot, you will need to make sure that SELinux allows the file changes. At the prompt ,enter: touch /.autorelabel. This will signal SELinux on the next reboot that the filesystem has changed (the changed password) and allow the change to be loaded. This will cause the whole filesystem to be 'relabeled' which might take a while, depending on the size of the filesystem and the speed of the machine, so be aware of this possibility.
+11. Type exit to leave the chroot environment and enter reboot.
+mknod -m 0666 /dev/random c 1 8
+mknod -m 0666 /dev/urandom c 1 9
+chown root:root /dev/random /dev/urandom
+
+
+From <https://www.redhat.com/sysadmin/recover-root-passwd> 
+
+CentrifyDC Leave/Join
+Adjoin -c "$OU" -u jroeder --verbose "$domain" -z default
+	
+Approved Baselines
+Server 2016 - All Documents (sharepoint.us)
+\\apfs.tuc.us.ray.com\projs\airporthd\Windows\OS\Windows 10
+
+4102 Windows Autopilot Access
+Add user to autopilot group
+Install autopilot software on users account
+Add them in autopilot software
+
+XRDP Firewall Rule
+Firewall-cmd --permanent --add-service=3389/tcp
+Firewall-cmd --reload
+	
+MSIEXEC
+Get-package *$NAME*
+Msiexec /quiet /x {$PRODUCT_CODE}
+
+Restore VM from NetApp snapshot
+How to manually restore a VMware ESX virtual machine from a snapshot volume/LUN - NetApp Knowledge Base
+
+Reprise License Manager (RLM)
+Q100659: What are the RLM utilities (rlmutil) and how can I use it? – Foundry
+Start Server: ./rlm -c path/to/license
+Stop Server: ./rlmtuil rlmdown pwid (pointwise)
+Server Stats: ./rlmutil rlmstat -a
+
+Install VIB on ESXi
+Article Detail (vmware.com)
+
+List installed VIB: Esxcli software vib list
+Install VIB: esxcli software vib install -v $FULL-PATH-TO-VIB
+	Reboot after!
+Remove VIB: esxcli software vib remove -n $SOFTWARE
+	Reboot after!
+
+ESXi General Patch
+esxcli software sources profile list -d /full/path/VMware-ESXi-7.0U2c-18426014-depot.zip
+
+Then issue the following command with the image profile from above
+
+esxcli software profile update -d /full/path/VMware-ESXi-7.0U2c-18426014-depot.zip -p <ImageProfile>
+
+ESXTOP Cheat Sheet:
+Calculate CPU RDY% from Ready Summation value in MS
+Realtime: (Ready Value / 20,000) * 100 = RDY%
+On ESXTOP, RDY% is 
+
+Unreachable Horizon Agent Fix
+Run on connection server, reboot machine after
+C:\Program Files\VMware\VMware View\Server\tools\bin
+vdmadmin -A -d desktop-pool-name -m name-of-machine-in-pool -resetkey
+
+ISSO Centrify Role commands:
+
+
+Intel Turbo Boost on DL380 ProLiant G10+
+1) Login to the iLO if configured
+2) On the left hand pane, navigate to "Performance"
+3) Click "Settings" at the top right of the page
+4) Click "Configure with Always On"
+5) Click "Perform Maintenance"
+6) Click "BIOS/Platform Configuration"
+ 
+In the BIOS Configuration:
+1) Drop down the "Workload Profile" and select "General Power Efficient Compute"
+2) Click "Update" in the top right (Optionally click "View Change" to verify what changes have been submitted)
+3) Reboot the host to apply the changes
+4) Wait for it to finish POST
+5) When the host is back online, access the same BIOS configuration page
+6) Change the Workload Profile to "Custom"
+7) Configure the following settings:
+RBSU > Power and Performance Options > Power Regulator > Static High Performance
+RBSU > Power and Performance Options > Energy Efficient Turbo > Enabled
+RBSU > Power and Performance Options > Intel Turbo Boost Technology > Enabled
+RBSU > Power and Performance Options > Advanced Performance Tuning Options > Enhanced Processor Performance > Enabled
+RBSU > Power and Performance Options > Advanced Performance Tuning Options > Enhanced Processor Performance Profile > Aggressive (If applicable, not available in all servers)
+RBSU  > Advanced Options > Fan and Thermal Options > Thermal Configuration > Enhanced CPU Cooling
+8) Reboot
+ 
+In the ESXi management web console:
+1) Select your ESXi host
+2) Select the "Configure" tab
+3) Select "Hardware > Overview" in the left-hand column
+4) Scroll down in the "Overview" tab, locate "Power Management"
+5) Select "Edit Power Policy"
+6) Click "Balanced" and hit "OK"
+
+------------------
+Bios - Workload Profile: General Power Efficient Compute
+	1) Set to the above setting, reboot, then change to custom and turn power to Static High Performance
+	2) Set Energy Efficient Turbo Boost Enabled
+iLO - Power Settings: Static High Performance Mode (Set this after booting!)
+BIOS - Advanced Options - Fan and Thermal - Enable 'Enhanced CPU cooling'
+BIOS - Power and Performance > Advanced Performance Tuning > Enable 'Enhanced Processor Performance'
+	On Gen10+, select performance profile "aggressive"
+ESX - Configure - Overview: Power Management Balanced (make sure ACPI C-States is enabled)
+
+Other things to check:
+Bios > Power and Performance options > Minimum Processor Idle Power Core C-State: C6
+Bios > Power and Performance options > Minimum processor idle power package c-state: Package C6 (retention) state
+
+Test ESX Turbo Boost:
+1) Open 2 SSH sessions to your ESX host
+2) On one session, run 'esxtop', press 'P' to open power menu, then press 'F' to open Fields. Select 'F' again to show power usage
+3) On the other SSH session, run 'cat /dev/urandom | md5sum' to create a single thread load on a CPU
+4) Look at the esxtop session, notice as %USED and %A/MPERF rise
+5) Calculate the turbo boost by taking the %USED x base clock speed of CPU
+	a. Example: 3.0 GHz x 1.30 %USED = 3.9 GHz
+
+FlexLM Cheatsheet
+Start daemon: ./lmgrd -c path/to/license.lic -l daemon.log
+License Stats: ./lmutil lmstat -a -c /path/to/license.lic
+
+Reset Hung iLO Web Interface
+Ssh to ilo interface (port 22)
+Login
+Cd /map1
+reset
+
+HP iLO Reset Admin Password
+SSH into the terminal session.
+Navigate to the tools directory: cd /opt/tools
+Open a new file with vi ilo_reset.xml
+Paste the following into the VI session
+<RIBCL VERSION="2.0">
+
+  <LOGIN USER_LOGIN="x" PASSWORD="x">
+
+  <USER_INFO MODE="write">
+
+    <MOD_USER USER_LOGIN="Administrator">
+
+      <PASSWORD value="pa$$word"/>
+
+    </MOD_USER>
+
+  </USER_INFO>
+
+  </LOGIN>
+
+</RIBCL>
+
+Note: Only change the password on the 5th line. The password on the 2nd line is just a placeholder and does not need to be valid. It just can’t be empty.
+
+Execute the following command: ./hponcfg -f ilo_reset.xml
+
+Enter Windows Advanced Boot Options from CMD
+shutdown /r /o /f /t 00
+
+NVIDIA Notes
+Support Home Page | NVIDIA (custhelp.com)
+Solving NVIDIA Installer Issues | NVIDIA (custhelp.com)
+How can I perform a silent install of the GPU driver? | NVIDIA (custhelp.com)
+Nvidia Driver Install Logging: setup.exe -log:"C:\NVlog" -loglevel:6
+NLP - Dashboard (nvidia.com)
+VMware vSphere :: NVIDIA Virtual GPU Software Documentation 511.65 documentation
+
+HKEY_LOCAL_MACHINE\SOFTWARE\NVIDIA Corporation\Logging
+HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\NVIDIA Corporation\Logging
+
+From <https://nvidia.custhelp.com/app/answers/detail/a_id/4223/~/solving-nvidia-installer-issues> 
+Client Licensing User Guide :: NVIDIA Virtual GPU Software Documentation
+Passthru docs Microsoft Windows Server :: NVIDIA Virtual GPU Software Documentation
+511.65 compatibility VMware vSphere :: NVIDIA Virtual GPU Software Documentation
+
+C:\Ramdisk64_inst>pnputil.exe /add-driver C:\Ramdisk64_inst\RAMDriv.inf /install /subdirs /restart
+Working install command for drivers?
+
+From <https://stackoverflow.com/questions/53864109/windows-driver-install-legacy-hardware-with-command-line-tool> 
+
+Linux Install/Uninstall
+./NVIDIA-Grid… (run 'init 3' before install to stop X server)
+./NVIDIA-Grid --uninstall
+
+MSIEXEC and Silent Installs
+msiexec | Microsoft Learn - All MSIexec switches
+Silently Install EXE and MSI setup applications (Unattended) - How To Guide (advancedinstaller.com)
+How to Create Response File to Be Used as Silent Install - Community (flexera.com) Response Files	
+Logging an MSI Installation - Community (flexera.com)
+
+
+
+ESXi root logged in as Pyvmomi event
+After upgrading the ESXi 7.x Host events log flooded with - logged in as pyvmomi Python/3.5.9 (VMkernel; 7.0.1; x86_64) (83593) (vmware.com)
+
+Storing Credentials for Powershell Scripts
+Here's another hint if you want to schedule the script - to store the credentials for your instance, do this:
+	• log on to your machine with the user that will run the script
+	• run Get-Credential | Export-Clixml -Path .\credential.xml
+	• this creates a credential file with an encrypted password
+	• supply credentials to Invoke-WebRequest like this: -Credential (Import-Clixml -Path .\credential.xml)
+	• note that only the user who created the file can import it, and only on the machine where it was created - this is the most secure way to store credential information
+
+From <https://www.servicenow.com/community/developer-forum/uploading-excel-file-from-powershell-script-corrupts-data/m-p/1839096> 
+
+
+Multipart Data Payload for Powershell API Calls
+$File = "C:\path\to\file\to\upload.txt" # Get just the file name (no path) 
+$FileName = Split-Path $File -leaf 
+# Get a GUID that is used to indicate the start and end of the file in the request 
+$boundary = "$([System.Guid]::NewGuid().ToString())" 
+# Read the contents of the file 
+$FileBytes = [System.IO.File]::ReadAllBytes($File) 
+$FileContent = [System.Text.Encoding]::GetEncoding('iso-8859-1').GetString($FileBytes) 
+# Build a Body to submit the request 
+$bodyLines = @" 
+--$boundary
+Content-Disposition: form-data; name=`"`"; filename=`"$FileName`" 
+Content-Type: application/octet-stream 
+
+$FileContent
+$($boundary)-- 
+"@ 
+Invoke-RestMethod -URI https://myserver:52311/api/upload -Method 'POST' -ContentType "multipart/form-data; boundary=`"$boundary`"" -Body $bodyLines -Credential $creds
+
+From <https://forum.bigfix.com/t/file-upload-with-api-and-powershell-failing/46613/3> 
+
+4102 Capital
+1) Make sure Capital DB service is running
+2) Start Integration Server service, then Management service
+3) Verify license daemon is running
+
+Include all Intranet Zones GPO
+Computer Configuration > ADMX > Windows Components > Internet Explorer > Internet Control Panel > Security Page > "Intranet Sites: Include all network paths (UNCs) : Enabled
+
+Grafana LDAP Configuration for Active Directory
+[[servers]]
+host = "10.0.0.1"
+port = 3269
+use_ssl = true
+start_tls = false
+ssl_skip_verify = true
+bind_dn = "CORP\\%s"
+search_filter = "(sAMAccountName=%s)"
+search_base_dns = ["dc=corp,dc=local"]
+
+[servers.attributes]
+name = "givenName"
+surname = "sn"
+username = "sAMAccountName"
+member_of = "memberOf"
+email =  "mail"
+
+Grafana SSL Certificate
+1) Create a PFX certificate using cert MMC (be sure to make private key exportable)
+	a. Cert MMC > New certificate request (be sure to fill out properties under the enrollment policy)
+	CN = Common Name: The registered organizational name that the certificate will be issued to and secure.
+	O = Organization: The registered organizational name the certificate belongs to. If the company or department has an &, @, or any other symbol using the shift key in its name, the symbol must be spelled out or omitted, in order to enroll. For example: "XY & Z Corporation" would be "XYZ Corporation" or "XY and Z Corporation".
+	OU = Organizational Unit: The department within the organization.
+	S = State: The business registered state or province. Do not abbreviate the state or province name, for example: California not CA.
+	L = Locality: The business registered location/city (not the actual server location).
+	C = Country/region: The two letter ISO country code.
+	
+	From <https://knowledge.digicert.com/solution/generate-a-csr-via-mmc-certificate-snap-in-using-windows> 
+	
+	
+	
+	
+	
+	
+2) Navigate to a machine with openssl installed
+	a. Openssl pkcs12 -in /path/to/certificate.pfx -nocerts -out /path/to/certificate.key (This exports the private key encrypted)
+	b. Openssl pkcs12 -in /path/to/certificate.pfx -clcerts -nokeys -out /path/to/certificate.crt (this exports file as .crt, no private key)
+	c. Openssl rsa -in /path/to/certificate.key -out /path/to/certificate-decrypted.key (this exports the private key as a .key file)
+Generate a CSR via MMC certificate snap-in using Windows (digicert.com)
+SSL : Part 2 : Signing a CSR with your Microsoft Certificate Authority | Virtually There
+
+Manually map user identities for NFS shares on windows
+1) Set-NfsMappingStore -EnableADLookup $True -ADDomainName "<your_domain>"
+2) Set-ADUser -identity <UserPrincipalName> -add @{uidNumber="<user_unix_uid>"; gidNumber="<user_unix_gid>"}
+
+Powershell script to allow non-admins to launch scheduled task
+ <#
+.SYNOPSIS
+This Powershell script updates the security descriptor for scheduled tasks so that any user can run the task. 
+Version 1.0 of this script only displays tasks in the root folder. I want to make sure that works first. 
+.DESCRIPTION
+Earlier versions of Windows apparently used file permissions on C:\Windows\System32\Tasks files to manage security.
+Windows now uses the SD value on tasks under HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree to accomplish that. 
+By default, this script will display the SDDL on all tasks. If a taskname is passed as a parameter, this script will grant Authenticated users read and execute permissions to the task. 
+This script accepts 1 parameters.
+-taskname   The name of a scheduled task. 
+.EXAMPLE
+./UnlockScheduledTask.ps1 
+./UnlockScheduledTask.ps1 -taskname "My task"  
+.NOTES
+Author: Dave K. aka MotoX80 on the MS Technet forums. (I do not profess to be an expert in anything. I do claim to be dangerous with everything.)
+#>
+
+param (
+    [string]$taskname = ""   
+ )
+
+ 'UnlockScheduledTask.ps1  Version 1.0'
+ if ($taskname -eq '') {
+    ''
+    'No task name specified.'
+    'SDDL for all tasks will be displayed.'
+    ''
+ } else {
+    $batFile = "$env:TEMP\Set-A-Task-Free.bat"           # if you don't like my names, you can change them here. 
+    $updateTaskName = 'Set-A-Task-Free'
+    ''
+    "SDDL for $taskname will be updated via $batfile"
+    ''
+ }
+ $wmisdh = new-object system.management.ManagementClass Win32_SecurityDescriptorHelper 
+ $subkeys = Get-childitem "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree"
+ foreach ($key in $subkeys) {
+    if ($taskname -eq '') {              # if blank, show SDDL for all tasks 
+        ''
+        $key.PSChildName
+        $task = Get-ItemProperty $($key.name).replace("HKEY_LOCAL_MACHINE","HKLM:")
+        $sddl = $wmisdh.BinarySDToSDDL( $task.SD ) 
+        $sddl['SDDL']        
+    
+    } else {
+        if ($key.PSChildName -eq $taskname) {
+            ""
+            $key.PSChildName
+            $task = Get-ItemProperty $($key.name).replace("HKEY_LOCAL_MACHINE","HKLM:")
+            $sddl = $wmisdh.BinarySDToSDDL( $task.SD ) 
+            $sddl['SDDL']
+            ''
+            'New SDDL'
+            $newSD = $sddl['SDDL'] +  '(A;ID;0x1301bf;;;AU)'          # add authenticated users read and execute
+            $newSD                                                    # Note: cacls /s will display the SDDL for a file. 
+            $newBin = $wmisdh.SDDLToBinarySD( $newsd )
+            [string]$newBinStr =  $([System.BitConverter]::ToString($newBin['BinarySD'])).replace('-','') 
+            
+            # Administrators only have read permissions to the registry vlaue that needs to be updated.
+            # We will create a bat file with a reg.exe command to set the new SD.
+            # The bat file will be invoked by a scheduled task that runs as the system account.
+            # The bat file can also be reused if the task is deployed to other machines. 
+            ''
+            "reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\{0}"" /f /v SD /t REG_BINARY /d {1}" -f $key.PSChildName, $newBinStr
+            "reg add ""HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\{0}"" /f /v SD /t REG_BINARY /d {1}" -f $key.PSChildName, $newBinStr  | out-file -Encoding ascii $batfile  
+            ''
+
+            SCHTASKS /Create /f /tn "$updateTaskName" /sc onstart  /tr "cmd.exe /c $batfile" /ru system 
+            SCHTASKS /run /tn "$updateTaskName"
+            $count = 0
+            while ($count -lt 5) {
+                start-sleep 5
+                $count++
+                $(Get-ScheduledTask -TaskName $updateTaskName).State
+                if ($(Get-ScheduledTask -TaskName $updateTaskName).State -eq 'Ready') {
+                    $count = 99            # it's ok to procees
+                }
+            }
+            if ($count -ne 99) {
+                "Error! The $updateTaskName task is still running. "
+                'It should have ended by now.'
+                'Please investigate.'
+                return
+            }
+            SCHTASKS /delete /f /tn "$updateTaskName"
+            ''
+            'Security has been updated. Test it.'
+        }
+    }      
+ }
+
+Ansys License Location
+/vdeploy/tools/ansys_inc/shared_files/licensing
+
+Allow Non-Admins to start/stop windows services
+1) Create windows service
+2) Add users to "Remote Management" local group for PowerShell access
+3) Adjust SDDL string to allow for start stop (WPRPCR?)
+4) SC.EXE \\$SERVER start grafana | SC.EXE \\$SERVER stop grafana (net start does not work)
+
+Azure DevOps Agent Configuration (4102)
+1) Export the ads.m03.rms server authentication certificate from ADS server (including private key as .PFX)
+	a. Certlm.msc > Personal > Certificates > Right Click "Export" > Include Private Key (.PFX) > Set Password > Encryption "AES256" > Save somewhere
+2) Ssh to a Linux machine with OpenSSL installed
+	a. Openssl pkcs12 -in /path/to/cert.pfx -out /path/to/cert.pem -nodes (this exports a .PEM cert bundle which includes the private key)
+3) On your ADS Agent host, extract the vsts agent software to C:\RTN\tfs_agent
+4) Move the .PEM file to the directory where your software is extracted
+5) Execute "C:\RTN\tfs_agent\externals\git\cmd\git.exe config --global http."https://m03.rms/".sslCAInfo /path/to/cert.pem" in an administrative Powershell
+	a. Execute "C:\RTN\tfs_agent\externals\git\cmd\git.exe config --global --list" to verify this has been set
+	b. NOTE: YOU MUST EXECUTE THE ABOVE GIT CONFIG AS THE TFS_AGENT ACCOUNT, DO NOT EXECUTE AS YOUR USER ACCOUNT THE SETTINGS MUST BE SET FOR THE TFS ACCOUNT
+6) Execute "C:\RTN\tfs_agent\config.cmd --gituseschannel"
+7) When prompted for the site URL > "https://ads/Hypersonics" or whatever project is requested.
+	a. Note: Do not use the FQDN, it does not work
+8) When prompted for authentication, use PAT or Integrated
+	a. Create a PAT for the TFS_Agent under https://ads/ > Top right Profile Pic > Security > New Token
+9) Copy the PAT into the prompt, hit enter
+	a. If it connects, to the server and does not error, you have configured SSL certificate correctly, else check above steps again
+10) Enter desired Pool Name (can be found on https://ads > Collection Settings > Agent Pools)
+11) Enter desired Agent Name (default is fine)
+12) It will scan for capabilities for a moment
+13) Hit enter for default _work folder
+14) Hit 'Y' on run agent as a service
+15) Hit 'Y' for SERVICE_SID_TYPE_UNRESTRICTED
+16) Hit 'Enter' to set it to run as network service, we will change this in a moment
+17) Enter 'Y' when it prompts to start immediately
+18) Navigate to 'services.msc' and switch the logon account to tfs_agent account from the network account that was set during configuration
+	a. Service name is "Azure Pipelines Agent"
+
+Azure DevOps Containerized Build Agent Notes
+Add root CA cert: go - Redhat ubi8-micro container without trusted root ca certificates - Server Fault
+1) sudo cp foo.crt /etc/pki/ca-trust/source/anchors
+2) update-ca-certificates
+
+	
+
+
+Unclassified Local Admin
+RTX Self Service - UPM become Assigned User - Desktop Admin Rights in ADXU (servicenowservices.com)
+
+Microsoft Office Automated Install
+Automate the Install of Microsoft Office 2016 with an MSP File | Jason Watkins (upenn.edu)
+
+Podman
+Common containers released: https://artifactory.rms.ray.com/ui/repos/tree/General/common-containers-released
+Connecting to artifactory: docs/how-to/install-configure-docker.md · main · DPD / SWF / CRUISE Cayman Developer Documentation · GitLab (ray.com)
+
+1) Need to add artifactory to /etc/containers/registries.conf.d/999-podman-machine.conf
+	a. unqualified-search-registries=["docker.io","common-containers-released.artifactory.rms.ray.com"]
+2) When pulling without a cert (podman pull --tls-verify=false) 
+3) Logging into artifactory, use employee ID and API key from artifactory
+4) Make sure DNS is configured correctly in podman machine
+	a. Podman machine ssh
+	b. Vi /etc/resolv.conf
+	c. Verify no proxy is enabled in "/etc/systemd/system.conf.d/default-env.conf"
+5) Example Podman Registry Login: podman login cruise-containers-prod-tuc.artifactory.rms.ray.com --tls-verify=false
+
+Reinstall Instructions: yum remove containers-common, yum remove podman
+
+Redhat UBI7.9: Red Hat Enterprise Linux 7 - Red Hat Ecosystem Catalog
+
+Redhat Container Resources
+Registry Token: Red Hat Customer Portal - Token Generation
+Registry Authentication: Red Hat Container Registry Authentication - Red Hat Customer Portal
+Raytheon Internal Containers Resources: docs/onboarding/centralized-registry-run-rules.md · main · DPD / SWF / CRUISE Cayman Developer Documentation · GitLab (ray.com)
+###Set HTTPS Proxy: set HTTPS_PROXY=proxygov.ray.com:443 - > Do not set this
+
+Raytheon Internal UBI Images
+UBI 7: https://artifactory.rms.ray.com:443/artifactory/common-containers-released-tuc/ubi7/
+UBI 8: https://artifactory.rms.ray.com:443/artifactory/common-containers-released-tuc/ubi8/
+UBI 9: https://artifactory.rms.ray.com:443/artifactory/common-containers-released-tuc/ubi9/
+
+Podman Attach NFS Volume
+podman run -it --name nfs-testvol-container -v /mnt/containerstorage:/opt registry.redhat.io/ubi7:latest bash
+
+Switch Windows 10 from RAID/IDE to AHCI
+Click the Start Button and type cmd
+Right-click the result and select Run as administrator
+Type this command and press ENTER: bcdedit /set {current} safeboot minimal (ALT: bcdedit /set safeboot minimal)
+Restart the computer and enter BIOS Setup
+Change the SATA Operation mode to AHCI from either IDE or RAID
+Save changes and exit Setup and Windows will automatically boot to Safe Mode.
+Right-click the Windows Start Menu once more. Choose Command Prompt (Admin).
+Type this command and press ENTER: bcdedit /deletevalue {current} safeboot (ALT: bcdedit /deletevalue safeboot)
+Reboot once more and Windows will automatically start with AHCI drivers enabled.
+
+Adjust Scaling factor for GNOME/GDM
+gsettings get org.gnome.desktop.interface scaling-factor
+gsettings set org.gnome.desktop.interface scaling-factor 2
+
+OpenShift Notes
+LDAP notes:
+Login wih Kube:admin > Administration > Cluster Settings > Authentication
+Look at the YAML for oauth kind "cluster", verify secret, ca.crt and bind secret are all current. Namespace needs to be "openshift-authentication" for these things
+
+Expand LVM
+How to resize a logical volume with 5 simple LVM commands | Enable Sysadmin (redhat.com)
+
+Create SLURM account
+1) Ssh to hpc-mgmt server (01/02/03)
+2) Sacctmgr account list
+	a. This displays all of the available accounts the user can be added to based on program
+3) Sacctmgr create user name=$USERNAME account=$ACCOUNT AdminLevel=none cluster=hpc_Cluster fairshare=10000 -i 
+
+Reset Artifactory admin password
+1) Create a file called bootstrap.creds under JFROG_HOME/artifactory/var/etc/access with this content: admin1@*=password1
+2) chmod 600 bootstrap.creds
+3) chown artifactory:artifactory bootstrap.creds
+4) Restart app
+From <https://stackoverflow.com/questions/20517937/artifactory-admin-credentials-reset> 
+
+Openshift Notes
+Creating images | Images | OpenShift Container Platform 4.2
+linux - How do I change the permissions in openshift container platform? - Stack Overflow
+Understanding and creating service accounts | Authentication and authorization | OpenShift Container Platform 4.8
+Persistent storage using NFS - Configuring persistent storage | Storage | OpenShift Container Platform 4.7
+kubernetes - start pod with root privilege on OpenShift - Stack Overflow
+[SOLVED]: Openshift Run Container as root with runAsUser In securityContext - LinuxDataHub
+Building Images in OpenShift with Artifactory and JFrog CLI
+
+Run OpenShift Pod as Root
+1) Create service account for namespace or deployment
+	a. oc create serviceaccount
+2) Add service account to privileged SCC
+	a. oc adm policy add-scc-to-user privileged system:serviceaccount:my-project:serviceaccount-name
+3) In the deployment, specify security context, runAsUser and serviceaccount name
+
+Example Deployment Spec:
+	    spec:
+	      containers:
+	      - name: simple
+	        image: 'image-registry.openshift-image-registry.svc:5000/openshift/httpd:latest'
+	        command: ["/bin/bash","-c","while true; do sleep 1000; done"]
+	        securityContext:
+	          runAsUser: 0 #Provided static uid of user root
+	      serviceAccountName: "abhi-sa"
+	
+Drain OpenShift Node
+
+1) List Nodes
+	a. oc get nodes
+2) Disable scheduling of pods on node
+	a. oc adm cordon compute-102
+3) Drain the node
+	a. oc adm drain compute-102 --delete-emptydir-data
+4) There may be services with local data on the node, delete them if needed
+	a. oc adm drain compute-102 --delete-emptydir-data --ignore-daemonsets  --force
+5) Verify no pods are running on the node
+	a. oc adm manage-node compute-102 --list-pods
+6) Set node scheduling back to 'true' to reenable
+	a. oc adm uncordon compute-102
+
+
+OpenShift Node NotReady Fix
+1) ssh -i /opt/openshift/os/ssh-keys/openshift core@WORKER_NODE (on osadmin2)
+2) sudo -i
+
+Make Master Nodes Schedulable
+oc edit schedulers.config.openshift.io
+mastersSchedulable: false/true
+
+NOTES FOR FIX:
+/projs/NEXUS/openshift-4.10/rocks-utilities/scripts/installer
+Imported the registry:2 image
+ran python3 install.py
+
+OpenShift Catalog Location
+. env_ocp
+/home/acole/osadmin/tools/start_registry.sh
+
+TEDNET Connection
+TEDNET IP: 172.24.170.139
+General ESXi: 10.1.31.20
+Horizon: 10.1.94.5
+NVIDIA DL380: 10.1.76.35
+
+Transfer Files to TEDNET
+Outside:
+\\tednet\incoming
+
+Inside:
+\\friday\incoming
+\\nas1\incoming
+
+TEDNET -> Outside:
+\\friday\outgoing
+\\tednet\outgoing
+
+HPC-MGMT Server Graphical Command
+sview
+
+TWC Backup and Restore Procedure
+Backup and restore data procedures - Teamwork Cloud 2021x - No Magic Documentation
+Migrating database - Teamwork Cloud 2021x - No Magic Documentation
+Cross-cluster resource synchronization - Teamwork Cloud 2021x Refresh2 - No Magic Documentation
+
+x0204 VMware Reserved MAC address Fix
+Static mac address in Esxi 5.5 “conflicts with VMware reserved MACs” (vstellar.com)
+
+1) Edit the .vmx file for the VM in a text editor
+2) Find the section for ethernet adapters
+
+ethernet0.networkName = "LAN"
+ethernet0.addressType = "static"
+ethernet0.present = "TRUE"
+ethernet0.checkMACAddress = "false"
+ethernet0.address = "00:0C:29:xx:xx:xx"
+
+
+Software Requests and Files
+
+Generally when software requests come up I first check: 
+	• Artifactory JFrog (ray.com), go to the "Search Artifacts" at the top and type in kind of just general search terms ("SQL", "SSMS" etc.)
+	• If I can't find it in artifactory, I move onto the "Airport Hard Drive" which is an unclassified NAS \\apfs.tuc.us.ray.com\apps\ and check the various folders here in apps\, I usually poke around all of those sub folders and see
+	• Finally, if it's not in Airport HDD, I go to STARS https://j2ee.rms.ray.com/stars/#!/home, which is the official Raytheon software request portal, when you fill out the form it gets routed to the tool owner who will likely reach out to you and ask you a few questions about licensing, or if you just need install files, what version etc.
+	• \\apfs\projs\airporthd\Windows\Applications\Microsoft_Software
+
+Config Guides and ISOs
+Home (sharepoint.us)
+
+Cameo "Java Version not Found" Error
+Remove environment variable like "JAVA_OPTS", when this is configured it changes the order in which Cameo reads the Java version string and stops it from launching
+
+Change GRUB Boot Order
+How to change boot options on Linux | Enable Sysadmin (redhat.com)
+1) nano /etc/default/grub
+2) Change "GRUB_DEFAULT=x" to whatever index you want (0 indexed)
+3) if BIOS:
+	a. grub2-mkconfig -o /boot/grub2/grub.cfg
+4) If EFI:
+	a. grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
+5) Verify default kernel "grubby --default-kernel"
+	
+Raytheon Company Store (software downloads for unclass)
+AppStore Home Page (ray.com)
+
+
+Build Podman from source
+How to Install Podman from Source on Ubuntu (howtoforge.com)
+WSL Proxy Settings: Configuring a proxy for Ubuntu (WSL) | by Alexander Astashkin | Medium
+RHEL on WSL: Run RHEL / Fedora on Windows Subsystem for Linux (WSL) | ComputingForGeeks
+
+wsl --list --online
+wsl --install -d DISTRO-NAME
+wsl --set-version lL 2
+wsl --list --all
+wsl --distribution <VM Name>
+
+
+
+Build Podman from Source: 5 Easy Steps (devtodevops.com)***
+
+Git Clone:
+Use git bash to clone, then access from /mnt/c/Users/E40029716
+
+git clone -c http.sslVerify=false https://github.com/containers/podman/
+
+MAKE Command: make BUILDTAGS="exclude_graphdriver_devicemapper exclude_graphdriver_btrfs" PREFIX=/usr
+
+1) Open the yum.conf file.
+2) Add/modify the following lines to yum.conf: proxy=http://proxy.example.com:3000
+3) Save the file.
+	
+	
+Set Podman Network Backend
+How to change podman network_backend ? - Red Hat Customer Portal
+1) Edit the file /etc/containers/containers.conf (create one if already not present) to include the below lines,
+[network]
+network_backend = "netavark"
+
+lsof find open ports
+lsof -i -Pn
+
+Windows Domain Time
+w32tm /config /syncfromflags:domhier /update
+restart w32time service
+
+Enable NTP mode on Domain Controller
+Locate HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Parameters
+Set the Type value to NTP.
+Enable the NTP Client:
+ 
+Locate HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Config
+Set the AnnounceFlags value to 5.
+Specify the upstream NTP servers to sync from:
+ 
+Locate HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders
+Set the NtpServer value to a list of at least 3 NTP servers.
+
+Example: You might set the value to:
+
+1.pool.ntp.org,0x1 2.pool.ntp.org,0x1 3.pool.ntp.org,0x1
+
+Note: On a Windows 2008 Domain Controller, NtpServer is located in HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Parameters.
+Specify a 15-minute update interval:
+ 
+Locate HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpClient
+Set the SpecialPollInterval value to 900.
+Restart the W32time service for the changes to take effect.
+
+ESXi NTP Configuration
+To configure specific parameters for NTP on ESXi 7.0 U3 and later versions, you need to load ESXi NTP configuration file by esxcli command instead of editing /etc/ntp.conf directly.
+Example:
+[root@localhost:~] vi /scratch/ntpconfig.txt
+[root@localhost:~] cat /scratch/ntpconfig.txt
+server ntpserver.yourdomain.com
+tos maxdist 30
+[root@localhost:~] esxcli system ntp set -f /scratch/ntpconfig.txt
+[root@localhost:~] esxcli system ntp set -e 1
+
+
+Troubleshooting NTP on ESX and ESXi 6.x / 7.x / 8.x (broadcom.com)
+
+NetApp ONTAP NTP Settings
+1) set advanced
+2) cluster time-service ntp security show
+3) cluster time-service ntp security modify -is-query-enabled true
+4) cluster time-service ntp security show
+
+Chrony jump time
+Chronyc -a makestep (jumps chrony time to match)
+
+Book Refinery Conference Room in Outlook
+CR RAY TU-M18* = conference room names
+ex) CR RAY TU-M18-(CLOSED)-The-Refinery-E0912
+
+NetApp shares inaccessible
+1) Check if ldap proxy is online
+	a. This can be checked under OnTAP GUI > Storage VMs > LDAP, then ssh to the servers and verify ldap proxy service is running and resolving
+2) Check if DNS is working
+	a. This can be checked under OnTAP GUI > Storage VMs > DNS, make sure things are resolving
+3) Reset LDAP bind account password and update in OnTap
+	a. OnTAP GUI > Storage VMs > LDAP
+
+Cassandra DB Tuning
+Tuning Java resources | Apache Cassandra 3.x (datastax.com)
+
+Git SSL Issuer Certificate Error Fix
+git config --global http.sslBackend schannel
+
+From <https://stackoverflow.com/questions/39004750/how-to-solve-ssl-certificate-self-signed-certificate-when-cloning-repo-from-git> 
+
+TIGs
+Digital Solutions Catalog (sharepoint.us)
+
+Change Control Site
+Program Digital Services Tools (sharepoint.us)
+
+Change vCenter IP Address
+/opt/vmware/share/vami/vami_config_net
+
+Reset vCenter Local User Password
+4) Login with root credentials via console
+5) Access bash shell
+6) Ran the following command " /usr/lib/vmware-vmdir/bin/vdcadmintool "
+7) Press 3 to reset the account password
+8) typed in the administrator@bbpsphere.local
+
+From <https://community.spiceworks.com/t/vmware-vcenter-server-unable-to-login-because-you-do-not-have-permission/778429/6> 
+
+License System User Guide - NVIDIA Docs - Podman Nvidia
+
+
+Windows SSH
+1 ) Install OpenSSH Client (or Server)
+Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
+
+2) Generate SSH key
+ssh-keygen
+
+3) Add public ssh key to authorized_keys on server
+type C:\Users\jroeder\.ssh\id_rsa.pub | ssh pi@crowpi 'cat >> .ssh/authorized_keys'
+
+4) passwordless ssh now works
+
+Expand max number of files for NetApp volume
+1) ssh to netapp node
+2) Login as admin
+3) volume modify vol1_projs -vserver dnas1 -files 79999989
+
+Will output if successful or not
+
+Relevant info about inodes and blocks
+• Q. How does ONTAP calculate the max number of files for a given volume size?
+A. By default, the volume will get 1 inode per every 32KB of disk space and the # of files that a volume can hold get arrived at using that number. The maximum number of inodes is limited to one inode per one block in the filesystem. (which is 1 inode per every 4KB). It is generally recommended to NOT go that low.
+
+From <https://community.netapp.com/t5/ONTAP-Hardware/Max-number-of-files/td-p/56632> 
+
+RHWSL Install from pip
+MAKE SURE TO EXPORT PROXY
+HTTPS_PROXY=proxygov.ray.com:443
+1) Download zscaler root cert
+2) copy to machine
+3) copy to /etc/pki/ca-trust/source/anchors/
+4) update-ca-trust
+5) pip3 --cert RTX\ Secure\ Gateway\ Services.pem --trusted-host pypi.org --trusted-host pypi.python.org install pyyaml
+
+Grow partition/pv/vg/lv on Linux
+There are three steps to make:
+	1. alter your partition table so sda2 ends at end of disk
+	2. reread the partition table (will require a reboot)
+	3. resize your LVM pv using pvresize
+
+Step 1 - Partition table
+Run fdisk /dev/sda. 
+Issue p to print your current partition table and copy that output to some safe place. 
+Now issue d followed by 2 to remove the second partition. 
+Issue n to create a new second partition. Make sure the start equals the start of the partition table you printed earlier. Make sure the end is at the end of the disk (usually the default).
+Issue t followed by 2 followed by 8e to toggle the partition type of your new second partition to 8e (Linux LVM).
+Issue p to review your new partition layout and make sure the start of the new second partition is exactly where the old second partition was.
+If everything looks right, issue w to write the partition table to disk. You will get an error message from partprobe that the partition table couldn't be reread (because the disk is in use).
+
+Reboot your system
+This step is neccessary so the partition table gets re-read.
+
+Resize the LVM PV
+After your system rebooted invoke pvresize /dev/sda2. Your Physical LVM volume will now span the rest of the drive and you can create or extend logical volumes into that space.
+
+Extend LV after
+lvextend -r -l +100%FREE /dev/centos/root
+
+From <https://serverfault.com/questions/861517/centos-7-extend-partition-with-unallocated-space> 
+
+Configuring DHCP ranges on IS4102
+Networking requires the first 10 addresses to be excluded from any DHCP range so that networking equipment can be statically assigned
+
+
+Downloading RPMs for offline use
+1) yumdownloader --downloadonly --downloaddir=. podman --resolve
+2) Copy files to offline PC
+3) createrepo /path/containing/files
+4) dnf clean all
+5) dnf makecache
+6) dnf install podman
+
+VMware Hands On Labs
+Course Catalog - VMware Lab Platform
+
+Access IPMI for 4102 hpc-scratch servers
+Note: IPMI for 4102 HPC are in /etc/hosts
+1) xRDP to hpc-mgmt03
+2) open firefox
+3) https://hpc-scratch02-ipmi
+4) Username Admin:Password is the usual
+5) Can access remote console to unlock LUKs, fix fstab etc
+
+RHEL8 cgroups
+https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/managing_monitoring_and_updating_the_kernel/using-cgroups-v2-to-control-distribution-of-cpu-time-for-applications_managing-monitoring-and-updating-the-kernel#mounting-cgroups-v2_using-cgroups-v2-to-control-distribution-of-cpu-time-for-applications
+
+RHEL8 Limit Resources per User (CPU/Memory)
+systemd.resource-control
+https://serverfault.com/questions/1161844/systemd-cpuquota-for-user-slice-not-working
+
+mkdir -p /etc/systemd/system/user-.slice.d/
+nano /etc/systemd/system.control/user.slice.d/50-CPUAccounting.conf
+[Slice]
+CPUQuota=600%
+MemoryLimit=50G
+
+If the above doesn't work, check below:
+1) systemctl show -p DefaultCPUAccounting > DefaultCPUAccounting=no
+2) nano /etc/systemd/system.conf > DefaultCPUAccounting=yes
+3) systemctl daemon-reload
+
+RHWSL Setup
+
+
+Setup follow you printing (unclassified)
+
+windows search "Add a printer or scanner" > hit plus sign at the top > click "the printer I want isn't listed" > select a shared printer by name > enter "\\ttuc-prtpprt02v.us.ray.com\FollowYou_PCL" in the text box > click next > it should successfully find and install it 
+
+
+ 
+Throttle NetApp SnapMirror
+
+Turn on Throttle:
+cluster_dst::> options -option-name replication.throttle.enable on
+cluster_dst::> options -option-name replication.throttle.incoming.max_kbs 60000
+cluster_dst::> options -option-name replication.throttle.outgoing.max_kbs 60000
+https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-global-throttling-concept.html
+
+Linux TLS Certificate Request
+Helpful web page below
+
+Create openssl.conf for certificate request on host where certificate signing request will be created
+[ req ]
+req_extensions = v3_req
+distinguished_name = req_distinguished_name
+prompt = no
+[ req_distinguished_name ] 
+C = US
+ST = Arizona
+L = Tucson
+O = Raytheon
+OU = Raytheon
+CN = $HOSTNAME.m03.rms
+[ v3_req ] 
+keyUsage = keyEncipherment, dataEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+[ alt_names ]
+DNS.1 = x0268.m03.rms
+DNS.2 = x0268
+DNS.3 = mattermost
+DNS.4 = mattermost.m03.rms
+
+On the linux host:
+openssl req -new -newkey rsa:2048 -keyout $HOSTNAME.key -out $HOSTNAME.csr -nodes -config /etc/ssl/openssl.conf
+cp x0268.csr /home/jroeder
+
+On the CA:
+Open Administrator PowerShell
+certutil -catemplates
+certreq -attrib "CertificateTemplate:WebServer"
+Navigate in pop up to CSR
+Complete the pop up instructions and save to your home dir
+
+On the linux host:
+cp /home/jroeder/x0268.cer .
+openssl pkcs12 -inkey x0268.key -in x0268.cer -export -out x0268.pfx
+openssl pkcs12 -in x0268.pfx -nocerts -out x0268.key
+openssl pkcs12 -in x0268.pfx -clcerts -nokeys -out x2068.crt
+openssl rsa -in x0268.key -out x0268-decrypted.key
+cp x0268-decrypted.key /opt/mattermost/config
+cp x0268.crt /opt/mattermost/config
+
+optional for java keystore creation:
+openssl pkcs12 -export -in client.crt -inkey client.key -certfile ca.crt -out keystore.p12
+keytool -importkeystore -srckeystore keystore.p12 -srcstoretype pkcs12 -destkeystore truststore.jks -deststoretype JKS -J-Dcom.redhat.fips=false
+keytool -importkeystore -srckeystore truststore.jks -destkeystore truststore.p12 -deststoretype pkcs12 -J-Dcom.redhat.fips=false
+
+PDSH Set SSH
+1) Check the default rcmd type: pdsh -q -w localhost
+2) If needed, set it to ssh: export PDSH_RCMD_TYPE=ssh
+3) Can also add #2 to ~/.bashrc if needed
+
+Scan RHEL VM disk without reboot
+echo 1 > /sys/class/block/sdb/device/rescan
+
+From <https://codenotary.com/blog/enlarge-a-disk-and-partition-of-any-linux-vm-without-a-reboot> 
+
+"partprobe" also works!!!
+
+Broadcom/VMware Portal
+My Dashboard - Support Portal - Broadcom support portal
+
+VMware ESXi Depot Update
+Install ESXi patch via depot zip file - Notes_Wiki
+
+1) esxcli software sources profile list -d <full-path-to-zip-file>
+2) esxcli software profile update -d <full-path-to-zip-file> --profile=<profile-name-from-above-output>
+
+NetApp ONTAP Publickey Authentication
+First, need to setup SSH as an authentication method for account of choice
+1) security login create -vserver c2 -user-or-group admin -application ssh -authentication-method publickey -role vsadmin
+
+Next, actually add the publickey to the user
+2) security login publickey create -username admin -index 0 -publickey "" (put publickey in quotes, also, may require stronger key than RSA, I used ecdsa)
+
+
+Red Hat Patching Issues
+Verify your yum cache is up to date with the repo
+	○ # yum clean all
+	○ List out all the packages and check to see if everything is available that you need available
+	○ # yum list all --showduplicates
+	○ # yum list <package> --showduplicates
+Verify there are no excludes or version locks applied to your system
+	○ # grep exclude /etc/yum.conf
+	○ # yum versionlock list
+	○ # subscription-manager release
+Check for pre-existing problems in the rpm database
+	○ # yum check
+	○ # package-cleanup --dupes
+	○ # package-cleanup --problems
+Rebuild the database with
+rpm --rebuilddb
+
+From <https://access.redhat.com/solutions/2801851> 
+
+
+Teradici License Console
+Download Center : Home
+Managing Licenses Offline - PCoIP Management Console 24.10 Administrators Guide
+
+Expand vCenter Server Appliance LVM
+vpxd_servicecfg storage lvm autogrow
+
+From <https://www.virtualslices.com/2016/03/04/increasing-the-disk-size-on-a-vcenter-server-appliance-in-vsphere-6-0/> 
+
+ESXi SUT/iSUT Auto Deploy Firmware
+set -sut mode=AutoDeployReboot
+check status:
+set /status
+
+Restarting VM from esxcli
+Powering off an unresponsive virtual machine on an ESXi host
+
+Disable ADS FIPS for git fix
+on ADS server set registry key:
+HKLM\System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy Enabled=0
+Reboot ads server
+
+Disable FIPS on rhel7 and 8 boxes (check procedure for each)
+Reboot rhel7/8 box
+
+To test SSH connection run 'ssh -T git@tfs_server'
+if output is "shell request failed on channel 0" it worked
+
+ADS Unresponsive Agent Fix
+check ulimit for max open files for users /etc/security/limits.conf
+check max audit log size in auditd.conf and if the machine is filling it up and going into single user mode
+if tfs_agent account is not domain admin/root, set to linger "loginctl enable-linger tfs_agent"
+Auditd.conf
+max_log_file_action = ROTATE
+max_log_file = 100
+
+
+
+
+Restart ESXi host mgmt
+/etc/init.d/hostd stop
+/etc/init.d/hostd stop
+/etc/init.d/vpxa stop
+/etc/init.d/vpxa start
+From <https://community.broadcom.com/vmware-cloud-foundation/discussion/i-cancelled-a-vmotion-task-and-it-is-now-stuck-in-cancel-requested-status> 
+
+to restart all services, services.sh restart, this is disruptive*******
+virtualguido: VMware ESXi locking and how to kill a frozen VM
+
+Artifactory replace SSL cert
+What is the best way to check if the certificate is present in the JVM keystore? • ARTIFACTORY: How to debug SSL issues with Artifactory • JFrog Help Center
+
+Requires a wildcard subdomain certificate e.g. *.artifactory.m03.rms
+openssl req -new -newkey rsa:2048 -keyout subdomain.key -out subdomain.csr -nodes -config /etc/openssl.conf
+
+Generate a certificate chain with the CA root certificate and the wildcard subdomain cert
+"cat > vserver3-ca.cer > /etc/pki/tls/certs/wildcard-chain.cer"
+"cat > wildcard-subdomain.cer >> /etc/pki/tls/certs/wildcard-chain.cer"
+
+copy wildcard subdomain, CA certs, and wildcard-chain to /opt/jfrog/artifactory/var/etc/security/keys/trusted
+update ssl cert paths in /etc/http/conf.d/artifactory.conf
+Restart httpd and artifactory services
+
+To change the artifactory server name/UPDATE SSL CERTS HERE TOO
+Bootstrapping the Global Configuration
+You can bootstrap Artifactory with a predefined global configuration by renaming the 
+$JFROG_HOME/artifactory/var/etc/artifactory/artifactory.config.latest.xml
+ file containing the Artifactory configuration descriptor to 
+$JFROG_HOME/artifactory/var/etc/artifactory/artifactory.config.import.xml
+
+Reboot after
+From <https://jfrog.com/help/r/jfrog-installation-setup-documentation/global-configuration-descriptor> 
+
+
+Change nfsd thread count
+echo '32' > /proc/fs/nfsd/threads
+
+From <https://unix.stackexchange.com/questions/38248/nfs-option-reload-without-service-restart> 
+
+to make it persist, edit 'threads' in /etc/nfs.conf
+
+Can also issue 'rpc.nfsd 32' to create 32 threads, will increase or decrease live to meet number
+
+hpc-scratch02 eno2 interface name fix
+ip link property add dev enp1s0 altname fast-nic
+
+From <https://access.redhat.com/solutions/6964829> 
+
+Take ownership of stuck Windows directory
+1) takeown /F "C:\Folder1" /r /d y
+2) icacls "C:\Folder1" /grant Administrators:F /t
+3) rd "C:\Folder1" /S /Q
+
+ADS Agent Information
+Deploy an Azure Pipelines agent on Linux - Azure Pipelines | Microsoft Learn
+
+OpenShift API Access Down Fix (Expired Certs)
+Issue recovering from expired control plane certificates after prolonged cluster shutdown · okd-project/okd · Discussion #1630 · GitHub
+1) ssh to master node using ssh key
+2) sudo -i
+3) cp /etc/kubernetes/static-pod-resources/kube-apiserver-certs/configmaps/control-plane-node-kubeconfig/kubeconfig /tmp/kubeconfig
+4) Edit /tmp/kubeconfig
+
+certificate-authority: /etc/kubernetes/static-pod-resources/kube-apiserver-certs/configmaps/trusted-ca-bundle/ca-bundle.crt
+...
+client-certificate: /etc/kubernetes/static-pod-resources/kube-apiserver-certs/secrets/control-plane-node-admin-client-cert-key/tls.crt
+client-key: /etc/kubernetes/static-pod-resources/kube-apiserver-certs/secrets/control-plane-node-admin-client-cert-key/tls.key
+
+5) export KUBECONFIG=/tmp/kubeconfig
+6) Approve pending CSRs
+oc get csr -o name --insecure-skip-tls-verify | xargs oc adm certificate approve --insecure-skip-tls-verify
+
+SystemPatcher Fix
+\\apfs\projs\PEWE-Patches\2024-12\Full\SystemPatcher\docs\systempatcher_fixes.txt
+
+To get systempatcher to run on these systems, you can apply this temporary fix by editing SystemPatcher2Lib1.vbs
+ 
+Go to line 33:
+blnReturnVal=IsAdmin(strUserName,blnCheckPrivs,dicReqPriv,blnDisplayHelp)
+ 
+Change to (add a single apostrophe at the beginning of the line) :
+‘blnReturnVal=IsAdmin(strUserName,blnCheckPrivs,dicReqPriv,blnDisplayHelp)
+ 
+Add this line (34) after line 33 above:
+ 
+blnReturnVal=True
+ 
+The above change prevents the call to openfiles.exe and pretends that the command succeeded.
+ 
+Then run systempatcher2.wsf again on the DC.
+
+4102 Volume Licensing (KMS/Windows/Office)
+runs on vserver3
+
+Dell BIOS Settings PowerShell
+Dell BIOS Settings Management – WMI – Jon's Notes
+
+HP Bios Settings PowerShell
+HP BIOS Settings Management – Jon's Notes
+
+NetApp Docs
+\\apfs\projs\airporthd\Netapp\RMS_Install_Guides
+\\apfs\projs\airporthd\Netapp\ONTAP_Software
+
+
+Zero Client DNS Discovery for Teradici Management Console
+Configuring DNS for Endpoints that use Autodiscovery - PCoIP Management Console 23.06 Administrators Guide
+
+Podman Networking Back End
+Chapter 12. Setting container network modes | Red Hat Product Documentation
+
+Podman macvlan networking (custom mac and ip)
+podman create network -d macvlan --gateway 10.18.3.1 --subnet 10.18.3.0/24 --interface-name eno5 teradici
+make sure promiscuous mode is enabled on the interface above (ip link set dev eno5 promisc on)
+systemctl enable --now netavark-dhcp-proxy.socket
+podman run -it --network teradici --ip 10.18.3.125 --mac-address 98:12:5a:67:8g
+
+Teradici Management Console Offline Licensing
+Managing Licenses Offline - PCoIP Management Console 24.07.1 Administrators Guide
+Anyware Support Cases
+CaseInfo
+Technical Support | HP Anyware Support
+
+XetaAI RTX internal LLM
+RTX XETA AI
+
+Configure postfix SMTP relay to use Exchange
+dnf remove sendmail
+dnf install postfix mailutils
+nano /etc/postfix/main.cf
+	myhostname = $hostname.m03.rms
+	mydomain = m03.rms
+	myorigin = $myhostname
+	inet_interfaces = all
+	inet_protcols = ipv4
+	relayhost = exch2019.m03.rms
+	
+systemctl enable --now postfix
+
+Make sure the IP range of the host is included in the exchange anonymous receive connector under 'scoping'
+
+Test message: echo "test" | mail -v -r "itserv@m03.rms" -s "test" jroeder@m03.rms
+
+Office 2016 KMS Activation
+Microsoft Office Volume Activation Using KMS Server | Windows OS Hub
+
+RPM Search Site
+RPM Search
+RPM CentOS Other quota-warnquota 4.04 x86_64 rpm
+
+Cisco 800-47593-01 D0
+
+WU/Get-WUFilebyID/Get-WUFileByID.ps1 at master · exchange12rocks/WU · GitHub
+
+Cipher Zero Out Unused Space on Windows Volume
+
+replace d:\ with the required drive
+Function CipherFreeSpace
+{
+    $cipherjob = @()
+    $Job = start-job -ScriptBlock {cipher /w:d:\ }
+    while ($cipherjob -notcontains "Writing 0xFF")
+    {
+        Write-host "." -nonewline 
+        Start-Sleep 2
+        $cipherjob += $job | Receive-Job 
+    }
+    $Job | Stop-Job | Remove-Job -Force
+}
+CipherFreeSpace
+
+From <https://serverfault.com/questions/165070/how-to-zero-fill-a-virtual-disks-free-space-on-windows-for-better-compression> 
+Using SDelete and vmkfstools to Reclaim Thin VMDK Space – vswitchzero
+
+NetApp Snapshot File Restore
+snapshot show -vserver <vserver name> -volume <volume name>
+mkdir /net/aff/vdi_esx/x0291-restore
+volume snapshot restore-file -vserver <vserver name> -volume <volume name> -snapshot hourly.2022-05-19_0705 -path /x0291-Splunk/x0291-Splunk.vmx -restore-path /x0291-restore/x0291-Splunk.vmx
+
+RTX Internal Wiki
+Storage and Data Protection - OpenWiki
+
+Exchange 2019 Shell Message Tracking
+Launch Exchange Management Shell on exch2019
+Run:
+Get-MessageTrackingLog -Server exch2019.m03.rms -Start "03/26/2025 13:00:00" -End "03/26/2025 17:00:00" -ResultSize 1000 -Sender tfsreporting@m03.rms
+
+Notepad++ Remove Duplicate Lines Regex
+ ^(.*?)$\s+?^(?=.*^\1$)
+
+From <https://superuser.com/questions/1291577/notepad-delete-duplicate-lines> 
+
+PDHS Notes
+https://www.rittmanmead.com/blog/2014/12/linux-cluster-sysadmin-parallel-command-execution-with-pdsh/amp/
+export PDSH_SSH_ARGS_APPEND="-q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+
+RHEL 8.10 NVIDIA Driver Fix Notes
+uninstall nvidia driver
+uninstall viewagent (/usr/lib/vmware/viewagent/bin/uninstall_viewagent.sh)
+make sure correct kernel is being booted (/etc/default/grub)
+grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
+mv /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r)-nouveau.img
+dracut /boot/initramfs$(uname -r).img $(uname -r)
+reboot
+When the machine comes back up, "modprobe video"
+Install nvidia driver with "--no-drm" flag
+should work
+
+VMware BLAST 60 FPS
+Need to set Encoder max FPS in GPO to 60 FPS
+Also need to configure on the VDI /etc/vmware/config > 
+VMware Blast Extreme Group Policy Settings – Bits, Bytes, & Radio Waves
+
+DNF Download Package and All dependencies
+dnf download --resolve --alldeps podman
+
+Disable SELinux RHEL8
+sudo vi /etc/selinux/config
+SELINUX=disabled
+reboot
+
+ESXi NTP Config
+ntpq -p
+ping ntp server
+cat /var/log/ntp.log
+/etc/init.d/ntpd restart
+date - shows hosts time
+
+NetApp RC4 Compatibility Mode
+How to manually configure RequireSeal to Compatibility Mode on a Windows domain controller - NetApp Knowledge Base
+How to check supported encryption types for Kerberos in Active Directory - NetApp Knowledge Base
+Can AES encryption be enabled on a CIFS server? - NetApp Knowledge Base
+CONTAP-80033: NTLM authentication fails due to enforcement of Netlogon RPC sealing - NetApp Knowledge Base
+
+Troubleshooting UltraPDM/WindChill/x0305
+first go to website:
+	http://ultra.core.ray/Windchill
+	or
+	http://ultrapdm.core.ray/Windchill
+
+if GUI is unresponsive:
+	Login to X0305 and x0305a as root
+	systemctl stop WC_Windchill
+	systemctl stop WC_Apache
+	systemctl stop WC_Oracle
+	dsctl windchill stop
+ 
+then: 
+	systemctl start WC_Windchill
+	systemctl start WC_Apache
+	systemctl start WC_Oracle
+	dsctl windchill start
+ 
+Verify Installed Version:
+if GUI is up, and user is having issues accessing Creo, check to see if user has 7.0.8.0 Creo installation instead of 5.0.5.0
+if they don't go to \\nas1\apps\creo7\New_Closed_Area\views\ETS\ETS and run "install.bat" as admin
+ 
+Launch the Engineering Tool Selector 
+	Pop up should include: 
+	Release state- Production 
+	Business Unit- RMS 
+	Configuration- Closed Area RTN Creo Parametric 7.0.8.0
+ 
+	have them enter the server information 
+	by going to file> manage session> server management>server > Register new server
+ 
+	they can use anything as the name, but the location needs to either point to
+ 
+	http://ultra.core.ray/Windchill
+	or
+	http://ultrapdm.core.ray/Windchill
+ 
+Licensing and Points of Contact
+if they get an error when login in with IS4102 credentials, have them reach out to UltraPDM team:
+	Devin Zeger, David Berryman, or Steven Worley to be added to the correct licensing group.
+	
+
+Openshift Machine Configs
+Working with OpenShift configurations
+oc get bc/wombat -o json > config.json
+oc replace -f config.json
+
+Linux Firefox Import Self-Signed Certificates
+Beginning with Firefox 64, Mozilla says, that an own "enterprise CA" can be imported from those system paths in Linux:
+
+/usr/lib/mozilla/certificates
+/usr/lib64/mozilla/certificates
+Those paths do not exist by default in Ubuntu, but can be added manually.
+
+Additionally, you have to name each certificate in the file /etc/firefox/policies/policies.json, so that it gets imported automatically:
+
+{
+    "policies": {
+        "Certificates": {
+            "ImportEnterpriseRoots": true,
+            "Install": [
+                "example.crt",
+                "/specific/folder/another-example.crt"
+            ]
+       }
+    }
+}
+In this case, a certificate file named "example.crt" in either of the named default directories will be added when firefox restarts.
+
+Create dnf/yum repo
+How to Create Your Own Repositories for Packages
+
+Create new repo - createrepo /opt/rpms
+Update repo metadata after adding new packages - createrepo --update /opt/rpms
+
+LUKS TPM2 Stuff
+Automatically decrypt your disk using TPM2 - Fedora Magazine
+defining the "pcr_bank" makes xword test in updateluks.sh work, ignore the other stuff look at the script - sudo clevis luks bind -d /dev/nvme0n1p3 tpm2 '{"pcr_bank":"sha256","pcr_ids":"0,1"}'
+
+A summary of what is measured into which PCRs according to the spec
+PCR 0: the EFI Firmware info like its version
+PCR 1: additional config and info related to the EFI Firmware
+PCR 2: EFI drives from hardware components (like RAID controller)
+PCR 3: additional config and info to drivers stored in 2
+PCR 4: pre-OS diagnostics and the EFI OS Loader
+PCR 5: config of the EFI OS Loader and GPT table
+PCR 6: is reserved for host platform manufacturer variables and is not used by EFI
+PCR 7: stores secure boot policy configuration
+
+OpenSSL Get Certificate
+echo | openssl s_client -showcerts -servername google.com -connect google.com:443 2>/dev/null | openssl x509 -inform pem -noout -text
+
+
+Register Local PSRepository for nuget packages
+alright, can you run 
+"install-pacakge nuget", install it
+ 
+next run
+"Register-PSRepository -Name foo -SourceLocation C:\bar\packages -InstallationPolicy Trusted"
+ 
+then run
+"Find-Module -Repository foo"
+ 
+finally
+"Install-Module -Name {module name returned in previous step}"
+
+RHEL Closed Area Patch ISOs
+Closed Area Monthly Patchset Repo ISOs
+
+
+RHEL Screensaver/Blanking Settings (untested, didn't copy down the exact working ones)
+
+1) Create /etc/X11/xorg.conf.d/10-extensions.conf         
+
+Section "Extensions"
+	Option "DPMS" "false"
+EndSection
+
+2) Create /etc/X11/xorg.conf.d/10-monitor.conf
+
+Section "ServerLayout"
+	Identifier "X.org Configured"
+	Screen 0 "Screen0" 0 0
+	InputDevice "Mouse0" "CorePointer"
+	InputDevice "Keyboard0" "CoreKeyboard"
+	Option "StandbyTime" "0"
+	Option "SuspendTime" "0"
+	Option "OffTime" "0"
+	Option "BlankTime" "0"
+EndSection
+
+1) Create the following file:
+/etc/dconf/db/local.d/99-screensaver.conf
+
+2) Add the following content
+
+[org/gnome/desktop/session]
+idle-delay=uint32 0
+
+3) run "dconf update", this applies a never screensaver
+
+Linux CPU Tuning Stuff
+tuned-adm profile accelerator-performance
+
+grub cmdline: intel_pstate=passive
+
+echo "powersave" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+
+echo "performance" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+
+cpupower frequency-set -g ondemand
+
+Join RedHat host to Active Directory Domain:
+
+Join Linux to AD Domain:
+
+1) dnf install -y chrony krb5-workstation samba-common-tools oddjob-mkhomedir samba-common sssd authselect
+
+2) make sure hostname is FQDN (hostnamectl set-hostname alma9.helios.lan), make sure DC is a DNS server in nmtui or /etc/resolv.conf
+
+2) sudo realm join [domain.lan] --user Administrator --membership-software=samba
+
+NFSv4 + krb5p
+https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/deploying_different_types_of_servers/deploying-an-nfs-server_deploying-different-types-of-servers#configuring-an-nfsv4-only-server_deploying-an-nfs-server
+
+1) AD joined linux box (see above)
+2) Make sure DNS A records exist for client and server
+3) Setup firewall
+firewall-cmd --permanent --add-service=nfs-server
+firewall-cmd --reload
+
+4) Install nfs
+dnf install nfs-utils
+
+(If doing NFSv4.1 only, set the following in /etc/nfs.conf)
+	[nfsd]
+	vers3=n
+Also if doing 4.1 only, disable v3 services
+systemctl mask --now rpc-statd.service rpcbind.service rpcbind.socket
+
+Optional: Check NFS versions in use
+cat /proc/fs/nfsd/versions
+
+
+6) Enable NFSv4.1 services 
+	systemctl enable --now nfs-idmapd nfs-server gssproxy nfsdcld
+
+Also enable:
+	systemctl enable --now nfs-idmapd
+	systemctl enable --now rpc-gssd
+
+
+7) setup exports on server
+/mnt/test/	192.168.1.242(rw,sec=krb5p)
+
+8) NOTE: The "nfs" spn must be set on the NFS server domain computer account
+setspn -s nfs/alma9.helios.lan
+
+9) Configure /etc/krb5.conf
+	[libdefaults]
+	    default_realm = HELIOS.LAN
+
+	[realms]
+	HELIOS.LAN = {
+	    kdc = dc01.helios.lan
+	    admin_server = dc01.helios.lan
+	}
+
+	[domain_realm]
+	    .meroh.net = HELIOS.LAN
+
+mount command (on client):
+kinit administrator (or whatever domain account is being used)
+mount alma9:/mnt/test /mnt
+
+
+Install NVIDIA driver from .run file
+1) Find driver
+	https://www.nvidia.com/en-in/drivers/details/257493/
+2) make executable
+3) dnf install kernel-devel libglvnd-devel gcc
+4) vim /etc/modprobe.d/nouveau.conf (blacklist nouveau driver, required)
+	blacklist nouveau
+5) systemctl isolate multi-user.target (kill x server before install!)
+6) ./NVIDIA-...run -s (silent)
+7) nvidia-smi to verify
+	
