@@ -1,49 +1,3 @@
-Links
-STARS
-	Software Tools and Applications Request System -
-
-Directory Services
-https://home.directory.ray.com/
-
-Config Guides
-	https://raytheon.sharepoint.us/sites/CISCCB/Baselines/Approved%20Baselines/Forms/AllItems.aspx?RootFolder=%2Fsites%2FCISCCB%2FBaselines%2FApproved%20Baselines%2FWindows%2010&FolderCTID=0x01200069D27018C3E40E4F9F6CC0850E04ECA0
-	
-ServiceNow
-	Home - NEXT Connect Portal
-	
-Operating Systems Repo
-	\\apfs.tuc.us.ray.com\projs\vdeploy\SHB Repository
-
-Removable Device Policy
-	https://exemption.ext.ray.com/
-	
-Removable Device Policy Wording:
-
-This team member is an appointed RMD DT representative supporting RMD Closed Programs, with roles and responsibilities that require data transfer from the ORION network to classified and non-Orion connected information systems in support of program requirements.     
-
-RMD DT representatives supporting RMD DT Closed Programs maintain control of this media until it is delivered to authorized Data Transfer Agents and Media Custodians, who follow customer approved procedures for processing, documenting, and dispositioning all media introduced to the program area and ensuring protection of classified information through proper use of external media.  
-
-Additionally, RMD DT representatives are expected to adhere with all company policies related to the security and privacy of customer and company proprietary communications regardless of classification, and in submitting this request, are confirming understanding and concurrence with these policies, including, but not limited to, RP-OGC-035 and RP-GSS-002.   
-
-Specific activities include, not limited to - Transfer data via removable media (optical, drives) in support of engineering, development, production deliverables. - Move operating systems, deployment packages, patches, software, firmware updates onto RMD DT supported systems that do not have the Forcepoint DLP software installed on them and are off ORION.
-
-
-Raytheon App Store
-	http://raytheonappstore.app.ray.com/
-
-Program Execution Wiki 
-	Home (sharepoint.us)
-
-Nessus Plugins
-	\\us\ids\Functions\Operations\DML\Software_Titles\Tenable\Tenable_Nessus_Plugin_Updates\
-
-System Patcher 
-	Old Link - \\apfs.tuc.us.ray.com\projs\PEWE-Patches\SystemPatcher
-	New Link - \\apfs.tuc.us.ray.com\projs\PEWE-Patches
-
-Patch Mgmt
-	\\apfs.tuc.us.ray.com\projs\airporthd
-
 Symantec AV Patches 
 	https://www.broadcom.com/support/security-center/definitions/download/detail?gid=sep14
 	Version Needed: Symantec Endpoint Protection Manager Installations on Windows Platforms x64 (Dark-Network Client only) 
@@ -53,24 +7,6 @@ Symantec Manager Definition Update
 	Download .jdb files to update definitions for Endpoint Protection Manager (broadcom.com)
 	Path for .jdb files - \Program Files(x86)\Symantec\Symantec Endpoint Protection Manager\data\inbox\content\incoming
 	
-GSSAC Findings
-GSS Audit and Corrective Action - Security Corrective Actions - RMD Default View-Open Recs (sharepoint.us)
-Jacob View- GSS Audit and Corrective Action - Security Corrective Actions - Jacob View (sharepoint.us)
-
-Approved Software
-Approved Software List - All Items (sharepoint.us)
-
-IT Notice 
-
-Email Template
-
-
-Artifactory
-	Artifacts - JFrog (ray.com)
-	
-STIG/SCAP
-	Home (sharepoint.us)
-
 Commands
 
 NetApp Fix 1173
@@ -1644,4 +1580,5 @@ Install NVIDIA driver from .run file
 5) systemctl isolate multi-user.target (kill x server before install!)
 6) ./NVIDIA-...run -s (silent)
 7) nvidia-smi to verify
+
 	
