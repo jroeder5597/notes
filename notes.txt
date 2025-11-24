@@ -1581,4 +1581,27 @@ Install NVIDIA driver from .run file
 6) ./NVIDIA-...run -s (silent)
 7) nvidia-smi to verify
 
-	
+SSH VPN Tunnel
+/etc/ssh/sshd_config
+PermitTunnel yes
+
+/etc/ssh/ssh_config
+Tunnel yes
+TunnelDevice any:any
+
+As root on both:
+Modprobe tun
+
+Then on client:
+Ssh -w 0:0 root@server_host
+
+Once connected via SSH on server:
+ifconfig tun0 10.2.2.2 netmask 255.255.255.252
+
+Then back on client:
+ifconfig tun0 10.2.2.1 netmask 255.255.255.252
+
+Nmcli c up tun0
+
+If traffic needs to be tunneled through ssh tunnel
+Ip route add 10.0.0.0/22 via 10.0.2.1 dev tun0 metric 5
